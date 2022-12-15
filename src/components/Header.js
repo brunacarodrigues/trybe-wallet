@@ -15,7 +15,7 @@ class Header extends Component {
       <header>
         <section>
           <h5 data-testid="email-field">{ `Email: ${email}` }</h5>
-          <h5 data-testid="total-field">{ `Despesa Total: ${sumTotal.toFixed(2)}` }</h5>
+          <h5 data-testid="total-field">{sumTotal.toFixed(2)}</h5>
           <h5 data-testid="header-currency-field">{ `${exchange}` }</h5>
         </section>
       </header>
@@ -23,9 +23,10 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  ...state.user,
-  expenses: state.wallet.expenses,
+const mapStateToProps = (globalState) => ({
+  email: globalState.user.email,
+  wallet: globalState.wallet,
+  expenses: globalState.wallet.expenses,
 });
 
 Header.propTypes = {

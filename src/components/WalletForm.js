@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { walletAction, expenseAction } from '../redux/actions';
+import { walletAction, expenseAction, saveAction } from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
@@ -72,8 +72,19 @@ class WalletForm extends Component {
     this.clearExpenses();
   };
 
+  handleChangeEdit = (event) => {
+    event.preventDefault();
+    const { dispatch } = this.props;
+    const objNew = this.state;
+    delete objNew.currencies;
+    dispatch(saveAction(objNew));
+    this.clearExpenses();
+  };
+
   render() {
-    const { value, description, currency, method, tag, currencies } = this.state;
+    const { value, description, currency, method, tag } = this.state;
+    const { currencies, edit, expenses } = this.props;
+    console.log(expenses);
     return (
       <div>
         <form>
@@ -145,9 +156,9 @@ class WalletForm extends Component {
           </label>
           <button
             type="button"
-            onClick={ this.handleChangeButton }
+            onClick={ edit ? this.handleChangeEdit : this.handleChangeButton }
           >
-            Adicionar despesa
+            { edit ? 'Editar despesa' : 'Adicionar despesa' }
           </button>
         </form>
       </div>
@@ -156,13 +167,16 @@ class WalletForm extends Component {
 }
 
 const mapStateToProps = (globalState) => ({
-  currencies: globalState.wallet,
+  currencies: globalState.wallet.currencies,
   expenses: globalState.wallet.expenses,
+  edit: globalState.wallet.edit,
 });
 
 WalletForm.propTypes = ({
   dispatch: PropTypes.func.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expenses: PropTypes.instanceOf(Array).isRequired,
+  currencies: PropTypes.instanceOf(Array).isRequired,
+  edit: PropTypes.bool.isRequired,
 });
 
 export default connect(mapStateToProps)(WalletForm);
