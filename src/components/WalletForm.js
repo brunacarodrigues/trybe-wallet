@@ -59,6 +59,7 @@ class WalletForm extends Component {
     };
 
     dispatch(expenseAction(expensesObj));
+    console.log(expensesObj);
     this.setState({
       value: '',
       description: '',

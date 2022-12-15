@@ -63,6 +63,7 @@ class Login extends Component {
             />
           </label>
           <button
+            data-testid="button-login"
             type="button"
             disabled={ buttonDisabled }
             onClick={ () => dispatch(emailAction(email)) && history.push('/carteira') }

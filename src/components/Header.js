@@ -4,13 +4,18 @@ import { connect } from 'react-redux';
 
 class Header extends Component {
   render() {
-    const { email, expenses } = this.props;
     const exchange = 'BRL';
+    const { email, expenses } = this.props;
+    const sumTotal = expenses
+      .reduce((acc, curr) => (
+        acc + (curr.value * curr.exchangeRates[curr.currency].ask)
+      ), 0);
+
     return (
       <header>
         <section>
           <h5 data-testid="email-field">{ `Email: ${email}` }</h5>
-          <h5 data-testid="total-field">{ `Despesa Total: ${expenses.toFixed(2)}` }</h5>
+          <h5 data-testid="total-field">{ `Despesa Total: ${sumTotal.toFixed(2)}` }</h5>
           <h5 data-testid="header-currency-field">{ `${exchange}` }</h5>
         </section>
       </header>
@@ -18,16 +23,14 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (globalState) => ({
-  email: globalState.user.email,
-  wallet: globalState.wallet,
-  expenses: globalState.wallet.expenses.reduce((acc, curr) => acc
-  + (+curr.value * curr.exchangeRates[curr.currency].ask), 0),
+const mapStateToProps = (state) => ({
+  ...state.user,
+  expenses: state.wallet.expenses,
 });
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  expenses: PropTypes.number.isRequired,
+  expenses: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default connect(mapStateToProps)(Header);
