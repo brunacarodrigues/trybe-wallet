@@ -17,6 +17,16 @@ class WalletForm extends Component {
     this.requestAPI();
   }
 
+  clearExpenses = () => {
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    });
+  };
+
   requestAPI = async () => {
     const { dispatch } = this.props;
     const coinsObj = await this.fetchAPI();
@@ -59,14 +69,7 @@ class WalletForm extends Component {
     };
 
     dispatch(expenseAction(expensesObj));
-    console.log(expensesObj);
-    this.setState({
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-    });
+    this.clearExpenses();
   };
 
   render() {
