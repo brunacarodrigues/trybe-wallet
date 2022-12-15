@@ -1,11 +1,11 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
-import { renderWithRouterAndRedux } from './renderWith';
-import App from '../../App';
+import userEvent from '@testing-library/user-event';
+import { renderWithRouterAndRedux } from './helpers/renderWith';
+import App from '../App';
 
-// const EMAIL_TEST = 'teste@trybe.com.br';
-// const PASS_TEST = '0123456789';
+const EMAIL_TEST = 'teste@trybe.com.br';
+const PASS_TEST = '0123456789';
 
 describe('Renderize a página de Login e testa...', () => {
   it('O input email e senha são renderizados na tela', () => {
@@ -37,14 +37,20 @@ describe('Renderize a página de Login e testa...', () => {
     const idSenha = screen.getByTestId('password-input');
     expect(idSenha).toBeInTheDocument();
   });
-  // it('ao clicar no botão de login, redireciona para outra página', () => {
-  //   const { history } = renderWithRouterAndRedux(<App />);
-  //   const loginBtn = screen.getByRole('button');
-
-  //   expect(loginBtn).toBeEnabled();
-  //   userEvent.click(loginBtn);
-
-  //   const { pathname } = history.location;
-  //   expect(pathname).toBe('/carteira');
-  // });
+  it('ao preencher os inputs, o botão é habilitado', () => {
+    renderWithRouterAndRedux(<App />);
+    const emailCorrect = EMAIL_TEST;
+    const passCorrect = PASS_TEST;
+    const emailInput = screen.getByRole('textbox');
+    const passInput = screen.getByPlaceholderText(/password/i);
+    const enterButton = screen.getByRole('button');
+    userEvent.type(emailInput, emailCorrect);
+    userEvent.type(passInput, passCorrect);
+    expect(enterButton).toBeEnabled();
+  });
+  it('se o email digitado é válido', () => {
+    renderWithRouterAndRedux(<App />);
+    userEvent.type(screen.getByRole('textbox'), EMAIL_TEST);
+    expect(screen.getByRole('button', { name: /entrar/i }).disabled).toBe(true);
+  });
 });

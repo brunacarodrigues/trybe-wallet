@@ -15,7 +15,7 @@ class Header extends Component {
       <header>
         <section>
           <h5 data-testid="email-field">{ `Email: ${email}` }</h5>
-          <h5 data-testid="total-field">{sumTotal.toFixed(2)}</h5>
+          <h5 data-testid="total-field">{ sumTotal.toFixed(2) }</h5>
           <h5 data-testid="header-currency-field">{ `${exchange}` }</h5>
         </section>
       </header>
