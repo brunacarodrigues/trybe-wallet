@@ -48,6 +48,18 @@ describe('Renderize a página de Login e testa...', () => {
     userEvent.type(passInput, passCorrect);
     expect(enterButton).toBeEnabled();
   });
+  it('ao preencher apenas um dos campos, ou um dos campos incorretamente, o botão é desabilitado', () => {
+    renderWithRouterAndRedux(<App />);
+    const emailFail = 'fail@fail.com';
+    const passFail = '123456';
+    const emailInput = screen.getByRole('textbox');
+    const passwordInput = screen.getByPlaceholderText(/password/i);
+    const enterButton = screen.getByRole('button');
+    userEvent.type(emailInput, emailFail);
+    userEvent.type(passwordInput, passFail);
+    expect(enterButton).toBeEnabled();
+  });
+
   it('se o email digitado é válido.', () => {
     renderWithRouterAndRedux(<App />);
     userEvent.type(screen.getByRole('textbox'), EMAIL_TEST);
