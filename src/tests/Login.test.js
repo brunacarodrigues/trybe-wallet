@@ -48,7 +48,7 @@ describe('Renderize a página de Login e testa...', () => {
     userEvent.type(passInput, passCorrect);
     expect(enterButton).toBeEnabled();
   });
-  it('se o email digitado é válido', () => {
+  it('se o email digitado é válido.', () => {
     renderWithRouterAndRedux(<App />);
     userEvent.type(screen.getByRole('textbox'), EMAIL_TEST);
     expect(screen.getByRole('button', { name: /entrar/i }).disabled).toBe(true);
