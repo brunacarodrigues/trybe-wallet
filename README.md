@@ -1,10 +1,2 @@
-# :construction: README em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+Projeto do módulo de Front-End.
+Gerenciamento de estado com Redux: Desenvolvimento de uma aplicação web que inclui uma página de login, um componente de header, formulário de adição de despesas, manipulação de estado global, renderização de tabelas dinâmicas, implementação de funcionalidades de edição e exclusão de despesas, além de escrita de testes para garantir a cobertura de código adequada.
